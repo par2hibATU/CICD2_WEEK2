@@ -1,25 +1,30 @@
 package ie.atu.week2.week2_CICD2;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
 public class ProductController {
-    private List<Product> productList = new ArrayList<>();
+    private final ProductService productService;
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
-    @GetMapping
+    @GetMapping("/product")
     public List<Product> getAllProducts() {
-        return productList;
+        return productService.getAllProducts();
     }
 
-    @PostMapping
-    public Product addProduct(@RequestBody Product product) {
-        productList.add(product);
-        return product;
+    @PostMapping("/product")
+    public Product addProduct(@RequestBody Product product){
+        return productService.addProduct(product);
     }
+
 
 }
 
