@@ -1,6 +1,7 @@
 package ie.atu.week2.week2_CICD2;
 
 
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,15 @@ public class ProductService {
         return product;
     }
 
-    public Product updateProduct(int id, String name, double price){
-        Optional<Product> existingProductOpt = productList.stream().filter(p -> p.getId() == (id)).findFirst();
-        existingProductOpt.ifPresent(p -> p.setName(name));
-        existingProductOpt.ifPresent(p -> p.setPrice(price));
+    public Product updateProduct(long id, Product updatedProduct) {
+        for (Product product : productList) {
+            if (product.getId() == id) {
+                product.setName(updatedProduct.getName());
+                product.setPrice(updatedProduct.getPrice());
+                return product;
+            }
+
+        }
         /*if(existingProductOpt.isPresent()){
             Product existingProduct = existingProductOpt.get();
             existingProduct.setName(updatedProduct.getName());
@@ -37,7 +43,7 @@ public class ProductService {
         }else {
             return null;
         }*/
-        return existingProductOpt.get();
+        return null;
     }
 
 }
