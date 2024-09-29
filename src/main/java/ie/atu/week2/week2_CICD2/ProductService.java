@@ -45,5 +45,14 @@ public class ProductService {
         }*/
         return null;
     }
+    public Product deleteProduct(long id) {
+        for(Product product : productList){
+            if(product.getId() == id){
+                productList.remove(product);
+                return product;
+            }
+        }
+        return null;
+    }
 
 }

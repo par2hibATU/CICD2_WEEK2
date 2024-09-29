@@ -33,6 +33,11 @@ public class ProductController {
         return productService.addProduct(product);
     }
 
+    @PostMapping("/products/{id}")
+    public Product deleteProduct(@PathVariable long id) {
+        return productService.deleteProduct(id);
+    }
+
 
 }
 
