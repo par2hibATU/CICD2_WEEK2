@@ -1,5 +1,6 @@
 package ie.atu.week2.week2_CICD2;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +24,18 @@ public class ProductController {
     }
 
     @PutMapping("/product/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable int id, String name, double price){
-        Product updatedProduct = productService.updateProduct(id, name, price);
-        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    public Product updateProduct(@PathVariable long id, @Valid @RequestBody Product product) {
+        return productService.updateProduct(id, product);
     }
 
     @PostMapping("/product")
     public Product addProduct(@RequestBody Product product){
         return productService.addProduct(product);
+    }
+
+    @PostMapping("/products/{id}")
+    public Product deleteProduct(@PathVariable long id) {
+        return productService.deleteProduct(id);
     }
 
 
