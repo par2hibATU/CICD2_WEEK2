@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping("/products")
 @RestController
 public class ProductController {
     private final ProductService productService;
@@ -23,6 +24,12 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable long id) {
+        Product product = productService.getProductById(id);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
     @PutMapping("/product/{id}")
     public Product updateProduct(@PathVariable long id, @Valid @RequestBody Product product) {
         return productService.updateProduct(id, product);
@@ -33,7 +40,7 @@ public class ProductController {
         return productService.addProduct(product);
     }
 
-    @PostMapping("/products/{id}")
+    @PostMapping("/product/{id}")
     public Product deleteProduct(@PathVariable long id) {
         return productService.deleteProduct(id);
     }
