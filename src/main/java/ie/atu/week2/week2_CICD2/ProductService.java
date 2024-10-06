@@ -19,7 +19,12 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productList;
     }
-
+    public Product getProductById(long id) {
+        return productList.stream()
+                .filter(product -> product.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
 
     public Product addProduct( Product product) {
         productList.add(product);
